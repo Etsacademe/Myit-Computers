@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Professional White Navbar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Head -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'League Spartan', sans-serif;
+      background-color: #f8f9fb;
+      color: #222;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 14px 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 60px;
+      margin-right: 10px;
+    }
+
+    .logo h2 {
+      font-size: 1.4rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-links a,
+    .nav-parent {
+      position: relative;
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      padding-bottom: 4px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a::after,
+    .nav-parent::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #ee9905;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-parent:hover {
+      color: #000;
+    }
+
+    .nav-links a:hover::after,
+    .nav-parent:hover::after {
+      width: 100%;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      min-width: 200px;
+      padding: 10px 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .dropdown:hover .dropdown-content {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dropdown-content a {
+      padding: 10px 20px;
+      display: block;
+      color: #333;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f2f2f2;
+      color: #ee9905;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: #333;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        background-color: white;
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+        padding: 12px 0;
+        box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .dropdown-content {
+        position: static;
+        opacity: 1 !important;
+        visibility: visible !important;
+        box-shadow: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .banner-content h1 {
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      .banner-image img.swirl {
+        display: none;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .feature-box {
+        margin: auto;
+      }
+    }
+
+    .about-us {
+      padding: 60px 20px;
+      background-color: #ffffff;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 40px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 30px;
+      justify-items: center;
+    }
+
+    .feature-box {
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 300px;
+      transition: transform 0.3s ease;
+      
+    }
+
+    .feature-box:hover  {
+      transform: translateY(-8px);
+       background-color: #f8f9fb;
+    }
+
+    .icon-circle {
+    
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 20px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8b746;
+    }
+
+    .icon-circle i {
+      font-size: 28px;
+    }
+
+    .feature-box h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .feature-box p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    section.banner {
+
+      background-color: #f8f9fb;
+      
+      padding: 60px 50px;
+      border-radius: 20px;
+      margin: 0px auto;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .banner-content, .banner-image {
+      flex: 1 1 100%;
+      text-align: center;
+    }
+
+    .banner-image {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .banner-image img.swirl {
+      position: absolute;
+      width: 60px;
+    }
+
+    .banner-image .swirl-left {
+      left: -20px;
+      top: 20px;
+    }
+
+    .banner-image .swirl-right {
+      right: -20px;
+      top: 20px;
+    }
+
+    @media(min-width: 768px){
+      .banner-content {
+        flex: 1 1 50%;
+        text-align: left;
+      }
+
+      .banner-image {
+        flex: 1 1 45%;
+        text-align: center;
+        margin-top: 0;
+      }
+    }
+
+  /* Statistics Boxes Section */
+.stats-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 40px 0;
+  
+}
+
+.stats-box {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  width: 180px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.stats-box:hover {
+  transform: translateY(-4px);
+}
+
+.stats-box div:first-child {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.stats-box div:last-child {
+  font-size: 1.05rem;
+  color: #555;
+  margin-top: 6px;
+}
+    .testimonial-section {
+      padding: 60px 20px;
+      background: #f8f9fb;
+      text-align: center;
+    }
+
+    .testimonial-section .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      color: #0d1222;
+    }
+
+    /* Swiper Styling */
+    .swiper {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 0;
+    }
+
+    .testimonial-card {
+      background: #fdfdfd;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      text-align: left;
+      height: auto;
+    }
+
+    .testimonial-text {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .author-info {
+      margin-left: 0;
+    }
+
+    .testimonial-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0d1222;
+      margin: 0;
+    }
+
+    .testimonial-role {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .stars {
+      color: #ffc107;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    /* Swiper buttons */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #0d1222;
+      transition: 0.3s;
+    }
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      color: #ff6600;
+    }
+
+    .swiper-pagination-bullet {
+      background: #0d1222;
+      opacity: 0.6;
+    }
+    .swiper-pagination-bullet-active {
+      background: #ff6600;
+      opacity: 1;
+    }
+
+.footer {
+  background-color: #111;
+  color: #f2f2f2;
+  padding: 40px 20px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  gap: 40px;
+}
+
+.footer-column {
+  flex: 1 1 250px;
+  min-width: 200px;
+}
+
+.footer-column h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #f8b746;
+}
+
+.footer-column p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px 10px 0;
+  font-size: 0.9rem;
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  color: #888;
+}
+.circle-wrapper {
+  
+  width: 450px;
+  height: 450px;
+
+  border-radius: 100%;
+  background-color: #f8b746;
+
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+
+ 
+
+  animation: float 4s ease-in-out infinite;
+}
+
+.circle-wrapper::before {
+  content: "";
+  position: absolute;
+  
+}
+
+
+.circle-wrapper img {
+  height: 450px;
+  object-fit: contain;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  position: absolute;
+  z-index: 1;
+}
+
+
+/* Container for the core values section */
+.core-values-section {
+    padding: 40px 10px;
+    background-color: #ffffff;
+    text-align: center;
+    
+}
+
+/* Section heading */
+.core-values-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* Wrapper for all value items */
+.values-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 90px;
+}
+
+.value-item {
+    border-radius: 15px;
+    padding: 30px 20px;
+    max-width: 300px;
+    height: 350px;
+    text-align: center;
+    background-color:  #222;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* Stylish diagonal shape */
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+}
+
+
+/* Hover effect for cards */
+.value-item:hover {
+    transform: translateY(-10px);
+    
+}
+
+/* Icon styling */
+.value-item img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+/* Card headings */
+.value-item h3 {
+    font-size: 1.2rem;
+    font-weight:550;
+    margin-bottom: 15px;
+     color: #f8b746;
+}
+
+/* Card paragraph text */
+.value-item p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: #f5f5f5;;
+    text-align: justify;
+}
+
+
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="Images/Logo (2).png" alt="Logo" />
+      <h2>My<span style="color: red;">i</span>T Computers</h2>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <span class="nav-parent">Services</span>
+        <div class="dropdown-content">
+          <a href="domain-hosting.html">Domain & Hosting</a>
+          <a href="app-development.html">App Development</a>
+          <a href="digital-marketing.html">Digital Marketing</a>
+          <a href="cloud-services.html">Cloud Services</a>
+        </div>
+      </div>
+      <a href="contact.html">Contact Us</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="register.html"
+        style="background-color: #f8b746; color: black; padding: 15px 25px; border-radius: 10px; text-decoration: none; font-weight: bold;"
+        onmouseover="this.style.backgroundColor='#000'; this.style.color='#fff';"
+        onmouseout="this.style.backgroundColor='#f8b746'; this.style.color='black';">
+        Register Now
+      </a>
+    </div>
+  </nav>
+
+  <!-- Banner Section -->
+  <section class="banner">
+    <div class="banner-content">
+      <h1 style="font-size: 5rem; font-weight: 700; color: #000;">Launch Smarter, <br><span style="font-size: 2.5 rem;"> Market Better,</span>     Grow Faster.</h1>
+      <div class="stats-boxes">
+        <div class="stats-box">
+          <div style="font-size:32px; color:#f59e0b; margin-bottom:8px;">
+    <i class="fas fa-briefcase"></i>
+  </div><div><b>50+</b></div>
+          <div>Projects Delivered</div>
+        </div>
+        <div class="stats-box">
+           <div style="font-size:32px; color:#f59e0b; margin-bottom:8px;" ><i class="fas fa-store"></i></div><div><b>25+</b></div>
+          <div>Happy Clients</div>
+        </div>
+        <div class="stats-box">
+          <div style="font-size:32px; color:#f59e0b; margin-bottom:8px;"><i class="fas fa-headset"></i></div>
+            <div><b>24/7</b></div>
+          <div>Support</div>
+        </div>
+      </div>
+    </div>
+   <div class="banner-image">
+  <div class="circle-wrapper">
+    <img id="changingImage" src="Images/Man (2).png" alt="IT Services">
+  </div>
+
+  
+</div>
+
+  </section>
+
+  <!-- What We Offer -->
+  <section class="about-us">
+    <div class="container">
+      <h2 class="section-title">What We Offer You</h2>
+      <p class="section-subtitle">Your one-stop solution for all digital needs</p>
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="icon-circle"><i class="fas fa-globe"></i></div>
+          <h3>Domain & Hosting</h3>
+          <p>Reliable domain registration and secure hosting services for your business.</p>
+        </div>
+        <div class="feature-box">
+          <div class="icon-circle"><i class="fas fa-mobile-alt"></i></div>
+          <h3>App Development</h3>
+          <p>Custom-built Android and iOS apps to bring your ideas to life.</p>
+        </div>
+        <div class="feature-box">
+          <div class="icon-circle"><i class="fas fa-bullhorn"></i></div>
+          <h3>Digital Marketing</h3>
+          <p>Boost your online presence with strategic marketing campaigns.</p>
+        </div>
+        <div class="feature-box">
+          <div class="icon-circle"><i class="fas fa-cloud"></i></div>
+          <h3>Cloud Services</h3>
+          <p>Scalable cloud solutions to store, manage, and access your data securely.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="core-values-section">
+    <h2 class="section-title">Core Values And Principles</h2>
+    
+    <div class="values-wrapper">
+      <div class="value-item">
+        <div style="font-size:42px; color:#f59e0b; padding-bottom:20px;">
+    <i class="fas fa-handshake"></i><br>
+        </div>
+        <h3>Long-term commitment</h3>
+        <p>29+ years of running a profitable organization gives us a good sense of challenges that a growing business faces. We take pride in running a sustainable business that’s powered by you, our customer.</p>
+      </div>
+
+      <div class="value-item">
+        <div style="font-size:42px; color:#f59e0b; padding-bottom:20px;">
+   <i class="fas fa-bullseye"></i>
+        </div>
+        <h3>Focus on research and development</h3>
+        <p>Software is our craft and we back it up with relentless investments in R&D. We prefer to own the entire technology stack, including running our data centers globally.</p>
+      </div>
+
+      <div class="value-item">
+        <div style="font-size:42px; color:#f59e0b; padding-bottom:20px;">
+   <i class="fas fa-lightbulb"></i>
+        </div>
+        <h3>Customer-first philosophy</h3>
+        <p>It's our customers' trust and goodwill that has helped us establish a strong position in the market. No matter the size of your business, we’re here to help you grow.</p>
+      </div>
+    </div>
+</section>
+
+
+<section class="testimonial-section">
+  <h2 class="section-title">What Our Clients Say</h2>
+
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      
+      <!-- Testimonial 1 -->
+      <div class="swiper-slide testimonial-card">
+        <p class="testimonial-text">“Fantastic service! They built our app quickly and with great quality.”</p>
+        <div class="testimonial-author">
+          <div class="author-info">
+            <h4 class="testimonial-name">Mr. Arun</h4>
+            <span class="testimonial-role">Textile Owner</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★ <span class="rating-number">5.0</span></div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="swiper-slide testimonial-card">
+        <p class="testimonial-text">“I got my cloud service integrated in no time. Highly professional team!”</p>
+        <div class="testimonial-author">
+          <div class="author-info">
+            <h4 class="testimonial-name">Ms. Priya</h4>
+            <span class="testimonial-role">Priya Fashions</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★ <span class="rating-number">5.0</span></div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="swiper-slide testimonial-card">
+        <p class="testimonial-text">“Great hosting support and 100% uptime. Recommended for startups.”</p>
+        <div class="testimonial-author">
+          <div class="author-info">
+            <h4 class="testimonial-name">Mr. Vinay</h4>
+            <span class="testimonial-role">Regis Sports</span>
+          </div>
+        </div>
+        <div class="stars">★★★★★ <span class="rating-number">5.0</span></div>
+      </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h3>MYiT Computers</h3>
+      <p>
+        B63 Sampath Nagar,<br>
+        Erode, Tamil Nadu <br>
+        India. <br>
+        Contact : 9942143137
+      </p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="register.html">Register Now</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    &copy; 2025 MYiT. All rights reserved.
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('active');
+  }
+
+
+
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    autoplay: { delay: 3000 },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 }
+    }
+  });
+
+   var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1, spaceBetween: 30, loop: true,
+      autoplay: { delay: 3000 },
+      pagination: { el: ".swiper-pagination", clickable: true },
+      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+      breakpoints: { 768:{slidesPerView:2}, 1024:{slidesPerView:3} }
+    });
+
+    const images=["Images/Man (2).png","Images/Women.png","Images/Laptop.png"];
+    let index=0;
+    const img=document.getElementById("changingImage");
+    setInterval(()=>{ index=(index+1)%images.length; img.style.opacity=0; setTimeout(()=>{ img.src=images[index]; img.style.opacity=1; },400); },3000);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+</body>
+</html>
